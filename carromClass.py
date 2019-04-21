@@ -2,21 +2,21 @@ from collections import defaultdict
 
 class Board():
 	def __init__(self):
-		self.blackCoins = 9
-		self.redCoins = 1
+		self.__blackCoins = 9
+		self.__redCoins = 1
 
 	def updateCoins(self, black, red):
-		self.blackCoins = self.blackCoins + black
-		self.redCoins = self.redCoins + red
+		self.__blackCoins = self.__blackCoins + black
+		self.__redCoins = self.__redCoins + red
 
 	def checkRedCoinsAvailable(self, move):
 		if(move == 3):
-			if(self.redCoins == 0):
+			if(self.__redCoins == 0):
 				return False
 		return True
 
 	def checkBlackCoinsAvailable(self, move):
-		if(self.blackCoins > 0):
+		if(self.__blackCoins > 0):
 			return True
 		return False
 
@@ -87,10 +87,10 @@ class CarromGame(Board, Player):
 			self.updateCoins(-1,0)
 			return 1
 		if(move == 2):
-			if(self.blackCoins+self.redCoins>=2):
+			if(self.__blackCoins+self.__redCoins>=2):
 				return 2
-			elif(self.blackCoins+self.redCoins==1):
-				if(self.blackCoins == 1):
+			elif(self.__blackCoins+self.__redCoins==1):
+				if(self.__blackCoins == 1):
 					self.updateCoins(-1,0)
 				else:
 					self.updateCoins(0,-1)
@@ -101,10 +101,10 @@ class CarromGame(Board, Player):
 		if(move == 4):
 			return -1
 		if(move == 5):
-			if(self.blackCoins > 0):
-				self.blackCoins-=1
+			if(self.__blackCoins > 0):
+				self.__blackCoins-=1
 			else:
-				self.redCoins -=1
+				self.__redCoins -=1
 			return -2
 		if(move == 6):
 			return 0
@@ -119,7 +119,7 @@ class CarromGame(Board, Player):
 			return False
 
 	def display(self):
-		print("Black Coins = ",self.blackCoins,"|| Red Coins = ",self.redCoins)
+		print("Black Coins = ",self.__blackCoins,"|| Red Coins = ",self.__redCoins)
 		print("Player1Score = ",self.player1Score,"|| Player2Score = ",self.player2Score)
 		print("Player1LastMoves",self.player1Move,"|| Player2LastMoves",self.player2Move)
 		print("\n")
@@ -127,7 +127,7 @@ class CarromGame(Board, Player):
 
 	def startGame(self, turn, player):
 		self.rule()
-		while(self.blackCoins>0 or self.redCoins>0):
+		while(self.__blackCoins>0 or self.__redCoins>0):
 			if(not turn):
 				print("Player1 = ",end=" ")
 				move = input()
